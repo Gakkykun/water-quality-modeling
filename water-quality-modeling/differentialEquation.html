@@ -1,0 +1,721 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>2. Differential Equation &#8212; Water Quality Modeling</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'water-quality-modeling/differentialEquation';</script>
+    <link rel="canonical" href="https://Gakkykun.github.io/water-quality-modeling/water-quality-modeling/differentialEquation.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3. Streeter Phelps Model" href="streeterPhelps.html" />
+    <link rel="prev" title="1. Fortran basics" href="fortranBasics.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="fortranBasics.html">1. Fortran basics</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">2. Differential Equation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="streeterPhelps.html">3. Streeter Phelps Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IWA.html">4. IWA River Water Quality Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lakeModel.html">5. Lake Model</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/Gakkykun/water-quality-modeling/master?urlpath=tree/water-quality-modeling/differentialEquation.md" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/Gakkykun/water-quality-modeling/blob/master/water-quality-modeling/differentialEquation.md" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/Gakkykun/water-quality-modeling" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Gakkykun/water-quality-modeling/edit/main/water-quality-modeling/differentialEquation.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Gakkykun/water-quality-modeling/issues/new?title=Issue%20on%20page%20%2Fwater-quality-modeling/differentialEquation.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/water-quality-modeling/differentialEquation.ipynb" target="_blank"
+   class="btn btn-sm btn-download-notebook-button dropdown-item"
+   title="Download notebook file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="../_sources/water-quality-modeling/differentialEquation.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Differential Equation</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#euler-s-method">2.1. Euler’s method</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modified-euler-s-method">2.2. Modified Euler’s method</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-4th-order-runge-kutta-method">2.3. The 4th-order Runge-Kutta method</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="differential-equation">
+<h1><span class="section-number">2. </span>Differential Equation<a class="headerlink" href="#differential-equation" title="Permalink to this heading">#</a></h1>
+<section id="euler-s-method">
+<h2><span class="section-number">2.1. </span>Euler’s method<a class="headerlink" href="#euler-s-method" title="Permalink to this heading">#</a></h2>
+<p>We numerically solve a simple differential equation using the Euler’s method and compare results with analytical solutions. Let’s briefly see how to derive the Euler’s method from a Taylor-series expansion.</p>
+<div class="math notranslate nohighlight">
+\[
+y(x_0 + \Delta x) = y(x_0) + \frac{dy}{dx}\lvert_{x=x_0} \Delta x + \frac{d^2y}{dx^2}\lvert_{x=x_0} \frac{\Delta x^2}{2!} + \frac{d^3y}{dx^3}\lvert_{x=x_0} \frac{\Delta x^3}{3!} + ...
+\]</div>
+<p>We neglect the second and higher derivatives as those terms are very small when <span class="math notranslate nohighlight">\(\Delta x\)</span> is very small:</p>
+<div class="math notranslate nohighlight">
+\[
+y(x_0 + \Delta x) = y(x_0) + \frac{dy}{dx}\lvert_{x=x_0} \Delta x 
+\]</div>
+<p>We solve the following differential equation, given that <span class="math notranslate nohighlight">\(y(0) = 1\)</span>, setting <span class="math notranslate nohighlight">\(\Delta t\)</span> at <span class="math notranslate nohighlight">\(0.001\)</span>. This equation has an analytical solution: <span class="math notranslate nohighlight">\(y(t) = e^{-t}\)</span></p>
+<div class="math notranslate nohighlight">
+\[
+\frac{dy}{dt} = -y
+\]</div>
+<div class="highlight-Fortran notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.001d0</span>
+<span class="w"> </span><span class="n">nsteps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">ceiling</span><span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="w"> </span><span class="n">dt</span><span class="p">)</span>
+
+<span class="w"> </span><span class="c">! Initial conditions</span>
+<span class="w"> </span><span class="n">t</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0d0</span>
+<span class="w"> </span><span class="n">y</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0d0</span>
+
+<span class="w"> </span><span class="k">do </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">nsteps</span><span class="o">-</span><span class="mi">1</span>
+<span class="w">  </span><span class="n">y</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">y</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+<span class="w">  </span><span class="n">t</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">dt</span>
+<span class="w"> </span><span class="k">end do</span>
+<span class="w">  </span>
+</pre></div>
+</div>
+<p>We define a function to calculate <span class="math notranslate nohighlight">\(\frac{dy}{dt} = -y\)</span>.</p>
+<div class="highlight-Fortran notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="k">contains</span>
+<span class="k"> function </span><span class="n">f</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="k">result</span><span class="p">(</span><span class="n">retval</span><span class="p">)</span>
+<span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="n">real64</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">y</span>
+<span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="n">real64</span><span class="p">)</span><span class="w"> </span><span class="n">retval</span>
+<span class="w"> </span>
+<span class="w">   </span><span class="n">retval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">y</span>
+<span class="w"> </span>
+<span class="w"> </span><span class="k">end function </span><span class="n">f</span>
+</pre></div>
+</div>
+<p>Then we compare the simulation results with analytical solutions. Here we use built-in functions, <span class="math notranslate nohighlight">\(\verb|exp|\)</span> and <span class="math notranslate nohighlight">\(\verb|abs|\)</span>.</p>
+<div class="highlight-Fortran notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="k">print</span><span class="o">*</span><span class="p">,</span><span class="s1">&#39;Numerical solution =&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">(</span><span class="n">nsteps</span><span class="p">)</span>
+<span class="w">  </span><span class="k">print</span><span class="o">*</span><span class="p">,</span><span class="s1">&#39;This compares to the Fortran EXP(X) function result: &#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="w">  </span><span class="k">print</span><span class="o">*</span><span class="p">,</span><span class="s1">&#39;The absolute error is:&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">abs</span><span class="p">(</span><span class="nb">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">)</span><span class="o">-</span><span class="n">y</span><span class="p">(</span><span class="n">nsteps</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+<section id="modified-euler-s-method">
+<h2><span class="section-number">2.2. </span>Modified Euler’s method<a class="headerlink" href="#modified-euler-s-method" title="Permalink to this heading">#</a></h2>
+<p>Unlike the Euler’s method, the Modified Euler’s method requires two slopes to estimate <span class="math notranslate nohighlight">\(y_{n+1}\)</span>. Increasing the number of slopes used for estimation strengths accuracy. We simply add both slopes and divide the sum by 2. The first slope, <span class="math notranslate nohighlight">\(f(x_n,y_n)\)</span>, is exactly same with Euler’s method, while for the second slope, <span class="math notranslate nohighlight">\(f(x_{n+1}, y_{n+1}^*)\)</span>, where <span class="math notranslate nohighlight">\(y_{n+1}^*\)</span> is estimated from <span class="math notranslate nohighlight">\(y_n + \Delta x f_n(x,y)\)</span></p>
+<div class="math notranslate nohighlight">
+\[
+\frac{dy}{dx} = f(x, y)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+y_{n+1} = y_{n} + \frac{\Delta x}{2}(f(x_n, y_n) + f(x_{n+1}, y_{n+1}^*)
+\]</div>
+<p>Here is the next example. We solve this differential equation, given that <span class="math notranslate nohighlight">\(y(1) = 0\)</span>, setting <span class="math notranslate nohighlight">\(\Delta t\)</span> at <span class="math notranslate nohighlight">\(0.1\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{dy}{dx} = y^2 + x^2
+\]</div>
+<div class="highlight-Fortran notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="n">dx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.1d0</span>
+<span class="w"> </span><span class="n">nsteps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">ceiling</span><span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="n">dx</span><span class="p">)</span>
+
+<span class="w"> </span><span class="c">! Initial conditions</span>
+<span class="w"> </span><span class="n">x</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">=</span><span class="mf">1.0d0</span>
+<span class="w"> </span><span class="n">y</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">=</span><span class="mf">0.0d0</span>
+
+<span class="w"> </span><span class="k">do </span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">nsteps</span><span class="o">-</span><span class="mi">1</span>
+<span class="w">   </span><span class="n">k1</span><span class="o">=</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">i</span><span class="p">),</span><span class="n">y</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+<span class="w">   </span><span class="n">k2</span><span class="o">=</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="n">dx</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="w"> </span><span class="n">dx</span><span class="w"> </span><span class="o">*</span><span class="n">k1</span><span class="p">)</span>
+<span class="w">   </span><span class="n">y</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">=</span><span class="n">y</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="w"> </span><span class="n">dx</span><span class="w"> </span><span class="o">/</span><span class="mf">2.</span><span class="o">*</span><span class="p">(</span><span class="n">k1</span><span class="o">+</span><span class="n">k2</span><span class="p">)</span>
+<span class="w">   </span><span class="n">x</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">=</span><span class="n">x</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="w"> </span><span class="n">dx</span>
+<span class="w"> </span><span class="k">end do</span>
+</pre></div>
+</div>
+<p>Here is a function to calculate <span class="math notranslate nohighlight">\(\frac{dy}{dx} = y^2 + x^2\)</span>.</p>
+<div class="highlight-Fortran notranslate"><div class="highlight"><pre><span></span><span class="k">contains</span>
+<span class="k"> function </span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="k">result</span><span class="p">(</span><span class="n">retval</span><span class="p">)</span>
+<span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="n">real64</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span>
+<span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="n">real64</span><span class="p">)</span><span class="w"> </span><span class="n">retval</span>
+
+<span class="w">   </span><span class="n">retval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span>
+<span class="w">   </span>
+<span class="w"> </span><span class="k">end function </span><span class="n">f</span>
+</pre></div>
+</div>
+</section>
+<section id="the-4th-order-runge-kutta-method">
+<h2><span class="section-number">2.3. </span>The 4th-order Runge-Kutta method<a class="headerlink" href="#the-4th-order-runge-kutta-method" title="Permalink to this heading">#</a></h2>
+<p>For the 4th-order Runge-Kutta method, we use four slopes to estimate <span class="math notranslate nohighlight">\(y_{n+1}\)</span>, two of which are same with Modified Euler’s method. We introduce <span class="math notranslate nohighlight">\(f(x_{n+1/2}, y_{n+1/2}^*)\)</span>, which corresponds to <span class="math notranslate nohighlight">\(k_2\)</span> and <span class="math notranslate nohighlight">\(k_3\)</span> and more weights than the others.</p>
+<div class="math notranslate nohighlight">
+\[
+y_{n+1} = y_{n} + \frac{\Delta x}{6}(f(x_n, y_n) + 4f(x_{n+1/2}, y_{n+1/2}^*) + f(x_{n+1}, y_{n+1}^*)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+k_1 = f(x_n, y_n)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+k_2 = f(x_n+\frac{\Delta x}{2}, y_n+\frac{\Delta x}{2}k_1)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+k_3 = f(x_n+\frac{\Delta x}{2}, y_n+\frac{\Delta x}{2}k_2)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+k_4 = f(x_n+\Delta x, y_n+\Delta x k_3)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+y_{n+1} = y_{n} + \frac{\Delta x}{6}(k_1 + 2k_2 + 2k_3 + k_4)
+\]</div>
+<p>Now we deal with the same problem with the 4th-order Runge-Kutta method. We have four <span class="math notranslate nohighlight">\(k\)</span>s</p>
+<div class="highlight-Fortran notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="k">do </span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">nsteps</span><span class="o">-</span><span class="mi">1</span>
+<span class="w">  </span><span class="n">k1</span><span class="o">=</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">i</span><span class="p">),</span><span class="n">y</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+<span class="w">  </span><span class="n">k2</span><span class="o">=</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="mf">0.5</span><span class="o">*</span><span class="n">dx</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="mf">0.5</span><span class="o">*</span><span class="n">dx</span><span class="o">*</span><span class="n">k1</span><span class="p">)</span>
+<span class="w">  </span><span class="n">k3</span><span class="o">=</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="mf">0.5</span><span class="o">*</span><span class="n">dx</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="mf">0.5</span><span class="o">*</span><span class="n">dx</span><span class="o">*</span><span class="n">k2</span><span class="p">)</span>
+<span class="w">  </span><span class="n">k4</span><span class="o">=</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="n">dx</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="n">dx</span><span class="o">*</span><span class="n">k3</span><span class="p">)</span>
+
+<span class="w">  </span><span class="n">y</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">=</span><span class="n">y</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="n">dx</span><span class="o">/</span><span class="mf">6.0</span><span class="o">*</span><span class="p">(</span><span class="n">k1</span><span class="o">+</span><span class="mf">2.0</span><span class="o">*</span><span class="n">k2</span><span class="o">+</span><span class="mf">2.0</span><span class="o">*</span><span class="n">k3</span><span class="o">+</span><span class="n">k4</span><span class="p">)</span>
+<span class="w">  </span><span class="n">x</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">=</span><span class="n">x</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="n">dx</span>
+<span class="w"> </span><span class="k">end do</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./water-quality-modeling"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="fortranBasics.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">1. </span>Fortran basics</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="streeterPhelps.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>Streeter Phelps Model</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#euler-s-method">2.1. Euler’s method</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modified-euler-s-method">2.2. Modified Euler’s method</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-4th-order-runge-kutta-method">2.3. The 4th-order Runge-Kutta method</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Yoshihiko Inagaki
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

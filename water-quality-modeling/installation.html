@@ -1,0 +1,764 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Installation &#8212; Water Quality Modeling</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'water-quality-modeling/installation';</script>
+    <link rel="canonical" href="https://Gakkykun.github.io/water-quality-modeling/water-quality-modeling/installation.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Bibliography" href="bibliography.html" />
+    <link rel="prev" title="5. Lake Model" href="lakeModel.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="fortranBasics.html">1. Fortran basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="differentialEquation.html">2. Differential Equation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="streeterPhelps.html">3. Streeter Phelps Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IWA.html">4. IWA River Water Quality Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lakeModel.html">5. Lake Model</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/Gakkykun/water-quality-modeling/master?urlpath=tree/water-quality-modeling/installation.md" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/Gakkykun/water-quality-modeling/blob/master/water-quality-modeling/installation.md" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/Gakkykun/water-quality-modeling" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Gakkykun/water-quality-modeling/edit/main/water-quality-modeling/installation.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Gakkykun/water-quality-modeling/issues/new?title=Issue%20on%20page%20%2Fwater-quality-modeling/installation.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/water-quality-modeling/installation.ipynb" target="_blank"
+   class="btn btn-sm btn-download-notebook-button dropdown-item"
+   title="Download notebook file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="../_sources/water-quality-modeling/installation.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Installation</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation-of-compiler">Installation of compiler</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up-of-environmental-variables">Set up of environmental variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation-of-code-editor-visual-studio-code-and-extentions">Installation of code editor (Visual Studio Code) and extentions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-of-a-build-task-in-vs-code">Setup of a build task in VS Code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-of-custom-user-snippets-in-vs-code">Setup of custom user snippets in VS Code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shortcut-keys">Shortcut keys</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization-software">Visualization software</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">#</a></h1>
+<p>Below explained are the steps necessary for Windows users to use Fortran in local PC.</p>
+<ol class="arabic simple">
+<li><p>Installation of compiler</p></li>
+<li><p>Setup of environmental variables</p></li>
+<li><p>Installation of code editor (Visual Studio Code) and extentions</p></li>
+<li><p>Setup of a build task in VS Code</p></li>
+<li><p>Setup of custom user snippets in VS Code</p></li>
+</ol>
+<section id="installation-of-compiler">
+<h2>Installation of compiler<a class="headerlink" href="#installation-of-compiler" title="Permalink to this heading">#</a></h2>
+<p>First, you need to get a compiler called gfortran. The role of using the compiler is to convert a f90 file to an executable file. We can install gfortran very easily thanks to Quickstart Fortran (<a class="github reference external" href="https://github.com/LKedward/quickstart-fortran">LKedward/quickstart-fortran</a>). You can download an executable file from their release page: <a class="github reference external" href="https://github.com/LKedward/quickstart-fortran/releases">LKedward/quickstart-fortran</a>. Note that this tool is only compatible with Windows currently. You will see a warning message after you click an exe file, but please go ahead and trust this software.</p>
+</section>
+<section id="set-up-of-environmental-variables">
+<h2>Set up of environmental variables<a class="headerlink" href="#set-up-of-environmental-variables" title="Permalink to this heading">#</a></h2>
+<p>Next, you need to set the path variable so that you are able to use a command <code class="docutils literal notranslate"><span class="pre">gfortran</span></code>
+in a terminal. Here is the procedure for this:</p>
+<ol class="arabic simple">
+<li><p>Type <code class="docutils literal notranslate"><span class="pre">env</span></code> in the Windows search window</p></li>
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">Edit</span> <span class="pre">the</span> <span class="pre">system</span> <span class="pre">environment</span> <span class="pre">vaiables</span></code> under Control panel</p></li>
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">Environment</span> <span class="pre">Vaiables...</span></code></p></li>
+<li><p>Now you can edit Path. Please be aware that you do not delete existing path variables and you just add a new path variable, which is <code class="docutils literal notranslate"><span class="pre">C:\Users\USERNAME\AppData\Local\quickstart_fortran\mingw64\bin</span></code>
+Note that “USERNAME” must be replaced with a user name that is set in your PC.</p></li>
+</ol>
+</section>
+<section id="installation-of-code-editor-visual-studio-code-and-extentions">
+<h2>Installation of code editor (Visual Studio Code) and extentions<a class="headerlink" href="#installation-of-code-editor-visual-studio-code-and-extentions" title="Permalink to this heading">#</a></h2>
+<p>We need a code editor to write a code, editing a f90 file. With a bare minimum, you can use a notepad; however, it is hard to visually understand the structure of a code (because it is black-and-white) and/or to locate mistyped code. Here, a sophisticated code editor is coming to play. Visual Studio Code is one of them, which provides you with syntax highlighting, auto-detection of mistyping, user snippets for frequently-used code blocks and so on. In addition, it is integrated with a terminal so that you do not have to go back and forth between a code editor and a terminal. You can visit <a class="reference external" href="https://code.visualstudio.com/">https://code.visualstudio.com/</a> to get the software. In Visual Studio Code, you can install a extension to facilitate your coding. Here is a specific extension dedicated to Fortran, <code class="docutils literal notranslate"><span class="pre">Modern</span> <span class="pre">Fortran</span></code> maintained by the Fortran Programming Language Organization, the same group that has developed Quickstart Fortran. You can tap the tile-shaped icon located in the left side bar, put ’Modern Fortran’ in the search window, and find that extension as seen below.</p>
+<p><img alt="" src="../_images/modern-fortran.png" /></p>
+<p>Please make sure that this extention is activated while you code to leverage functionality such as syntax highlighting.</p>
+<p>Antother useful extention is called <code class="docutils literal notranslate"><span class="pre">Material</span> <span class="pre">Icon</span> <span class="pre">Theme</span></code>. With this extention activated, you will see an icon next to a file name so that the type of file can be easily identified.</p>
+<p><img alt="" src="../_images/material-icon.png" /></p>
+<p>Now You are ready to check if the installed compiler works. You can open a terminal inside Visual Studio Code.</p>
+<p><img alt="" src="../_images/terminal.png" /></p>
+<p>By typing <code class="docutils literal notranslate"><span class="pre">gfortran</span> <span class="pre">--version</span></code> in a terminal, if you get version information in the terminal, you have succeeded in the installation.</p>
+<p><img alt="" src="../_images/check-installation.png" /></p>
+<blockquote>
+<div><p>If you see a message saying “gfortran is not recognized”, please close VS code or kill the teminal. Then, please reopen VS code and/or open new terminal.</p>
+</div></blockquote>
+<p>Let’s create a very first f90 file and look at the procedure:</p>
+<ol class="arabic simple">
+<li><p>Create a new folder called test in Desktop (this is an example; you can choose a location wherever you want) to store f90 files.</p></li>
+</ol>
+<p><img alt="" src="../_images/new-folder-desktop.png" /></p>
+<ol class="arabic simple" start="2">
+<li><p>Open Visual Studio Code and open the folder just created.</p></li>
+</ol>
+<p><img alt="" src="../_images/open-folder-in-VS-code.png" /></p>
+<ol class="arabic simple" start="3">
+<li><p>Create a new f90 file</p></li>
+<li><p>Write a code (here we assume that a file name is <code class="docutils literal notranslate"><span class="pre">test.f90</span></code>)</p></li>
+</ol>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">program </span><span class="n">name</span>
+<span class="w">  </span><span class="k">implicit none</span>
+<span class="k">  print</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;test&#39;</span>
+
+<span class="k">end program</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>Run the code in the terminal: <code class="docutils literal notranslate"><span class="pre">gfortran</span> <span class="pre">test.f90</span> <span class="pre">-o</span> <span class="pre">test</span></code></p></li>
+<li><p>Run the execution file (a.exe) that is created in the Step 5 in the terminal: <code class="docutils literal notranslate"><span class="pre">./test</span></code></p></li>
+</ol>
+<p><img alt="" src="../_images/executable-output.png" /></p>
+</section>
+<section id="setup-of-a-build-task-in-vs-code">
+<h2>Setup of a build task in VS Code<a class="headerlink" href="#setup-of-a-build-task-in-vs-code" title="Permalink to this heading">#</a></h2>
+<p>There is another way to produce an executable file (.exe file). You can open <code class="docutils literal notranslate"><span class="pre">Terminal</span> <span class="pre">&gt;</span> <span class="pre">Run</span> <span class="pre">Build</span> <span class="pre">Task</span></code>. A preliminary set-up is necessary to use this functionality.</p>
+<p><img alt="" src="../_images/build1.png" /></p>
+<p>You will first select <code class="docutils literal notranslate"><span class="pre">No</span> <span class="pre">build</span> <span class="pre">task</span> <span class="pre">to</span> <span class="pre">run</span> <span class="pre">found.</span> <span class="pre">Configure</span> <span class="pre">Build</span> <span class="pre">Task…</span></code>.</p>
+<p><img alt="" src="../_images/build2.png" /></p>
+<p>After that, select <code class="docutils literal notranslate"><span class="pre">Create</span> <span class="pre">tasks.json</span> <span class="pre">from</span> <span class="pre">template</span></code>.</p>
+<p><img alt="" src="../_images/build3.png" /></p>
+<p>Then select ‘Others’ so that a file named ‘tasks.json’ will be created under the folder, ‘.vscode’.</p>
+<p><img alt="" src="../_images/build4.png" /></p>
+<p><img alt="" src="../_images/build5.png" /></p>
+<p>You can place a provided <code class="docutils literal notranslate"><span class="pre">tasks.json</span></code> file (<a class="reference download internal" download="" href="../_downloads/7e80890d52a7777669855266665887a6/tasks.json"><span class="xref download myst">Download</span></a>) under the <code class="docutils literal notranslate"><span class="pre">.vscode</span></code> folder to overwrite the default file. In the “args” section, you will see command options attached:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-g</span></code> : produce debugging</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-O2</span></code>: set optimization level as 2</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-o</span></code>: produce the executable file with a given name</p></li>
+</ul>
+<p>Now you can select again <code class="docutils literal notranslate"><span class="pre">Terminal</span> <span class="pre">&gt;</span> <span class="pre">Run</span> <span class="pre">Build</span> <span class="pre">Task</span></code> (or press <code class="docutils literal notranslate"><span class="pre">Ctrl+Shift+B</span></code> as a shortcut key). An execution file with a give name will be created (here, “test.exe” will be created).</p>
+<p><img alt="" src="../_images/build-completed.png" /></p>
+</section>
+<section id="setup-of-custom-user-snippets-in-vs-code">
+<h2>Setup of custom user snippets in VS Code<a class="headerlink" href="#setup-of-custom-user-snippets-in-vs-code" title="Permalink to this heading">#</a></h2>
+<p>It is annoying to type the first line (i.e., <code class="docutils literal notranslate"><span class="pre">use,intrinsic</span> <span class="pre">::</span> <span class="pre">iso_fortarn_env</span></code>) every time you create a new file. A solution to save time is using user snippets. You can type “fun” and then you will see a candidate snippet displayed. By choosing it, you can retrieve a block of code. This is an example of user snippets provided by the extension, ModernFortran. To set our own user snippets, first open <code class="docutils literal notranslate"><span class="pre">File</span> <span class="pre">-</span> <span class="pre">Preferences</span> <span class="pre">-</span> <span class="pre">User</span> <span class="pre">Snippets</span></code> in Visual Studio Code. You are prompted to select a snippets file. <code class="docutils literal notranslate"><span class="pre">FortranFreeForm.json(Fortran90)</span></code> is the one we want to choose.</p>
+<p><img alt="" src="../_images/user-snippets-settings1.png" /></p>
+<p>Inside this file, there are a bunch of guide comments in default, showing you how to write user snippets.</p>
+<p><img alt="" src="../_images/user-snippets-settings2.png" /></p>
+<p>You can delete the entire comments and put the following code:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;Using iso fortran env module&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;prefix&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;usf&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;body&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">           </span><span class="s2">&quot;use,intrinsic :: iso fortran env&quot;</span>
+<span class="w">          </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Using iso fortran env module&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Other snippets looks like:</p>
+<p><img alt="" src="../_images/user-snippets.png" /></p>
+<p>You can download <code class="docutils literal notranslate"><span class="pre">FortranFreeForm.json</span></code> (<a class="reference download internal" download="" href="../_downloads/b4b5067319b78a3afc920324e9d91af5/FortranFreeForm.json"><span class="xref download myst">Download</span></a>) and replace the existing code with the downloaded file.</p>
+<p>Now you just type <code class="docutils literal notranslate"><span class="pre">usf</span></code> and Visual Studio Code automatically provides you with the one line of code, <code class="docutils literal notranslate"><span class="pre">use,intrinsic</span> <span class="pre">::</span> <span class="pre">iso_fortran_env</span></code>.</p>
+<p><img alt="" src="../_images/user-snippets-demo.png" /></p>
+<p><img alt="" src="../_images/user-snippets-demo2.png" /></p>
+</section>
+<section id="shortcut-keys">
+<h2>Shortcut keys<a class="headerlink" href="#shortcut-keys" title="Permalink to this heading">#</a></h2>
+<p>There are useful shortcut keys to speed up your coding in Visual Studio Code. Although you might feel uncomfortable to use them initially, but once you get used to them, there is no doubt that your coding is much faster.</p>
+<ul class="simple">
+<li><p>Toggle line comment : press Ctrl + /</p></li>
+<li><p>Add selection to next Find match:</p></li>
+<li><p>Drag a word/part of interest and press Ctrl + d</p></li>
+<li><p>Copy line up/down: press Shift + Alt + ↑ or ↓</p></li>
+<li><p>Move line up/down: press Alt + ↑ or ↓</p></li>
+<li><p>Delete a line: press Ctrl + Shift + k</p></li>
+</ul>
+</section>
+<section id="visualization-software">
+<h2>Visualization software<a class="headerlink" href="#visualization-software" title="Permalink to this heading">#</a></h2>
+<p>Among a plenty of options for visualization software, we will use a Python library called matplotlib. To use Python, an easy way is to use Miniconda. You can get an executable file at the following site: <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html#windows-installers">https://docs.conda.io/en/latest/miniconda.html#windows-installers</a></p>
+<p>Once you install Miniconda in your local PC, next create a new folder (e.g., “fortran-programs” at Desktop), where a where a notebook and Fortran programs are also placed. You can put a file named <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> (<a class="reference download internal" download="" href="../_downloads/02d2833ad716d3ab0a7b41be224b7a33/environment.yml"><span class="xref download myst">Download</span></a>) in the new folder, and then run the following commands at Anaconda command prompt (the first command is for moving to the folder):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>Desktop/fortran-programs
+conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>environmnet.yml
+</pre></div>
+</div>
+<p>In the yaml file, <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code>, the name of environment as well as libraries to be installed are described.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fortran-excercises</span>
+<span class="nt">channels</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">conda-forge</span>
+<span class="nt">dependencies</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python=3.10</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ipython</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jupyter</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jupyterlab&gt;3</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">numpy</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pandas</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">matplotlib</span>
+</pre></div>
+</div>
+<p>The deault environment called “base” is already there, but we do not use this environment. Instead, we will create a new environment and then install necessary python libraries so that if something wrong happens, we can simply delete this environment and start from the scratch. However, if we mess up with the base environment, we may need to re-install Miniconda, which would waste time. To activate a new environment of which the name is “fortran-programs”, execute the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>fortran-programs
+</pre></div>
+</div>
+<p>Then, you can type the following command and you will see a web browser automatically launch.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jupyter<span class="w"> </span>lab
+</pre></div>
+</div>
+<p>The above is the settings you need to do for the first time. From the second time, you just run commands in three steps.</p>
+<ol class="arabic simple">
+<li><p>Open the Anaconda terminal and move to the working folder</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>Desktop/fortran-programs
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Activate the environment, “fortran-programs”</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>fortran-programs
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Launch Jupyter Lab</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jupyter<span class="w"> </span>lab
+</pre></div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./water-quality-modeling"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="lakeModel.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">5. </span>Lake Model</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="bibliography.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Bibliography</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation-of-compiler">Installation of compiler</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up-of-environmental-variables">Set up of environmental variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation-of-code-editor-visual-studio-code-and-extentions">Installation of code editor (Visual Studio Code) and extentions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-of-a-build-task-in-vs-code">Setup of a build task in VS Code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-of-custom-user-snippets-in-vs-code">Setup of custom user snippets in VS Code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shortcut-keys">Shortcut keys</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization-software">Visualization software</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Yoshihiko Inagaki
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

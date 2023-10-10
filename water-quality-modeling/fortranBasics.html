@@ -1,0 +1,836 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>1. Fortran basics &#8212; Water Quality Modeling</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'water-quality-modeling/fortranBasics';</script>
+    <link rel="canonical" href="https://Gakkykun.github.io/water-quality-modeling/water-quality-modeling/fortranBasics.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="2. Differential Equation" href="differentialEquation.html" />
+    <link rel="prev" title="Welcome to Fortran programming" href="../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">1. Fortran basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="differentialEquation.html">2. Differential Equation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="streeterPhelps.html">3. Streeter Phelps Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IWA.html">4. IWA River Water Quality Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lakeModel.html">5. Lake Model</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/Gakkykun/water-quality-modeling/master?urlpath=tree/water-quality-modeling/fortranBasics.md" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/Gakkykun/water-quality-modeling/blob/master/water-quality-modeling/fortranBasics.md" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/Gakkykun/water-quality-modeling" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Gakkykun/water-quality-modeling/edit/main/water-quality-modeling/fortranBasics.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Gakkykun/water-quality-modeling/issues/new?title=Issue%20on%20page%20%2Fwater-quality-modeling/fortranBasics.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/water-quality-modeling/fortranBasics.ipynb" target="_blank"
+   class="btn btn-sm btn-download-notebook-button dropdown-item"
+   title="Download notebook file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="../_sources/water-quality-modeling/fortranBasics.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Fortran basics</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#input-and-output">1.1. Input and output</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#if-statement">1.2. If statement</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loop">1.3. Loop</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-subroutine">1.4. Function/Subroutine</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#array">1.5. Array</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="fortran-basics">
+<h1><span class="section-number">1. </span>Fortran basics<a class="headerlink" href="#fortran-basics" title="Permalink to this heading">#</a></h1>
+<p>In Fortran, you need to first declare a type of variable. The types for number typically used are real (a number with a decimal point) and integer (a number without a decimal point). We want to set double precision for real to conduct more accurate calculations. We can use a module, iso_fortran_env and add (real64) to real as shown below.</p>
+<div class="highlight-Fortran notranslate"><div class="highlight"><pre><span></span><span class="k">use</span><span class="p">,</span><span class="k">intrinsic</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">iso</span><span class="w"> </span><span class="n">fortran</span><span class="w"> </span><span class="n">env</span>
+
+<span class="kt">real</span><span class="p">(</span><span class="n">real64</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We cover five important features of Fortran in this section, showing examples of how to use them.</p>
+<section id="input-and-output">
+<h2><span class="section-number">1.1. </span>Input and output<a class="headerlink" href="#input-and-output" title="Permalink to this heading">#</a></h2>
+<p>Let’s think of a simple input and output operation: After asked “Enter the number: ” in the terminal, we want to type an arbitrary number (which must be integer for this case) and store that number to a variable named <span class="math notranslate nohighlight">\(\verb|num|\)</span> and then to show that number in the terminal with a message of “number = “. We declare the type of <span class="math notranslate nohighlight">\(\verb|num|\)</span> as integer in the first line.</p>
+<div class="highlight-Fortran notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">num</span><span class="w"> </span>
+
+<span class="w"> </span><span class="k">print</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Enter the number: &#39;</span>
+<span class="w"> </span><span class="k">read</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">num</span>
+<span class="w"> </span><span class="k">print</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;number = &#39;</span><span class="p">,</span><span class="w"> </span><span class="n">num</span><span class="w">   </span>
+</pre></div>
+</div>
+<p>In the next example, we want to control a format of how numbers are displayed in the terminal. Instead of using <span class="math notranslate nohighlight">\(\verb|*|\)</span> after <span class="math notranslate nohighlight">\(\verb|print|\)</span>, we can use <span class="math notranslate nohighlight">\(\verb|'(*F10.4))'|\)</span>. Here <span class="math notranslate nohighlight">\(\verb|F|\)</span> indicates “floating number”, <span class="math notranslate nohighlight">\(\verb|10|\)</span> means that we secure <span class="math notranslate nohighlight">\(10\)</span> digits including blanks, while <span class="math notranslate nohighlight">\(\verb|4|\)</span> is to set a number of decimal places. By placing <span class="math notranslate nohighlight">\(\verb|*|\)</span> in front of <span class="math notranslate nohighlight">\(\verb|F|\)</span>, we do not have to manually indicate the number of variables (i.e., three in this case). We need to put ‘d0’ after a number to ‘activate’ the double precision. If we forget to add it, the value remains single precision, even though we declare the type in the double precision.</p>
+<div class="highlight-Fortran notranslate"><div class="highlight"><pre><span></span><span class="kt">real</span><span class="p">(</span><span class="n">real64</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="w"> </span>
+
+<span class="w"> </span><span class="n">a</span><span class="o">=</span><span class="mf">1.9d0</span><span class="p">;</span><span class="w"> </span><span class="n">b</span><span class="o">=</span><span class="mf">2.4d0</span><span class="p">;</span><span class="w"> </span><span class="n">c</span><span class="o">=</span><span class="mf">3.3d0</span>
+<span class="w"> </span><span class="k">print</span><span class="w"> </span><span class="s1">&#39;(*F10.4))&#39;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span>
+</pre></div>
+</div>
+<p>Let’s slightly modify the previous code. We want to write numbers of a to c to a <span class="math notranslate nohighlight">\(\verb|csv|\)</span> file. We need to use a <span class="math notranslate nohighlight">\(\verb|open|\)</span> function, which requires two arguments <span class="math notranslate nohighlight">\(\verb|unit|\)</span> and <span class="math notranslate nohighlight">\(\verb|file|\)</span>. The former is a number allocated to a different file to be differentiated from other files, while the latter is a file name (<span class="math notranslate nohighlight">\(\verb|results.csv|\)</span> in this case). Next, we need to use a <span class="math notranslate nohighlight">\(\verb|write|\)</span> function. Again, we will provide two arguments. The first is exactly same with the <span class="math notranslate nohighlight">\(\verb|open|\)</span> function. We can omit <span class="math notranslate nohighlight">\(\verb|unit=|\)</span>. The second is a format as previously seen. Format is always defined with single quotes. <span class="math notranslate nohighlight">\(\verb|*|\)</span> indicates repeat of a format, <span class="math notranslate nohighlight">\(\verb|(g0:, &quot;,&quot;)|\)</span> as long as data (a to c for this case) exist. Since we deal with a <span class="math notranslate nohighlight">\(\verb|csv|\)</span> file, we provide <span class="math notranslate nohighlight">\(\verb|&quot;,&quot;|\)</span> in the second position as a delimiter, while <span class="math notranslate nohighlight">\(\verb|g0:|\)</span> in the first position indicates automatic adjustment of displaying and not giving a comma (<span class="math notranslate nohighlight">\(\verb|,|\)</span>) after the last number (i.e., <span class="math notranslate nohighlight">\(\verb|c|\)</span>).</p>
+<div class="highlight-Fortran notranslate"><div class="highlight"><pre><span></span><span class="kt">real</span><span class="p">(</span><span class="n">real64</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="w"> </span>
+
+<span class="w"> </span><span class="n">a</span><span class="o">=</span><span class="mf">1.9d0</span><span class="p">;</span><span class="w"> </span><span class="n">b</span><span class="o">=</span><span class="mf">2.4d0</span><span class="p">;</span><span class="w"> </span><span class="n">c</span><span class="o">=</span><span class="mf">3.3d0</span>
+<span class="w"> </span><span class="k">open</span><span class="w"> </span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="k">file</span><span class="o">=</span><span class="s1">&#39;results.csv&#39;</span><span class="p">)</span>
+<span class="w"> </span><span class="k">write</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;(*(g0:,&quot;,&quot;))&#39;</span><span class="p">)</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span>
+</pre></div>
+</div>
+</section>
+<section id="if-statement">
+<h2><span class="section-number">1.2. </span>If statement<a class="headerlink" href="#if-statement" title="Permalink to this heading">#</a></h2>
+<p>We consider the case solving the quadratic equation: <span class="math notranslate nohighlight">\( ax^2 + bx + c = 0 \)</span>. Here are the steps:</p>
+<ul class="simple">
+<li><p>Input <span class="math notranslate nohighlight">\(a\)</span>, <span class="math notranslate nohighlight">\(b\)</span> and <span class="math notranslate nohighlight">\(c\)</span> from terminal</p></li>
+<li><p>Calculate the discriminant: <span class="math notranslate nohighlight">\(b^2 - 4ac\)</span></p></li>
+<li><p>Check if the discriminant is greater than or equal to <span class="math notranslate nohighlight">\(0\)</span></p>
+<ul>
+<li><p>If yes: calculate the roots:
+<span class="math notranslate nohighlight">\(
+\frac{
+  -b + \sqrt{b^2 - 4ac}
+}{
+  2a
+}
+\)</span></p></li>
+<li><p>If no: print ‘No real roots’</p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-Fortran notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="n">real64</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">discriminant</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">root1</span><span class="p">,</span><span class="w"> </span><span class="n">root2</span>
+
+<span class="w"> </span><span class="n">discriminant</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="o">**</span><span class="mi">2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">4</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="n">c</span>
+
+<span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">discriminant</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+<span class="k">  </span><span class="n">root1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="n">b</span><span class="o">+</span><span class="nb">sqrt</span><span class="p">(</span><span class="n">discriminant</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="mf">2.</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+<span class="w">  </span><span class="n">root2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="n">b</span><span class="o">-</span><span class="nb">sqrt</span><span class="p">(</span><span class="n">discriminant</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="mf">2.</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+<span class="w">  </span><span class="k">print</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;root 1: &#39;</span><span class="p">,</span><span class="w"> </span><span class="n">root1</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;root 2: &#39;</span><span class="p">,</span><span class="w"> </span><span class="n">root2</span>
+<span class="w"> </span><span class="k">else</span>
+<span class="k">  print</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;no real roots&#39;</span>
+<span class="w"> </span><span class="k">end if</span>
+</pre></div>
+</div>
+<p>The following is the list of symbols used for rational expressions.</p>
+<ul class="simple">
+<li><p>&lt; : Is less than</p></li>
+<li><p><span class="math notranslate nohighlight">\(&gt;\)</span> : Is greater than</p></li>
+<li><p>== : Is equal to</p></li>
+<li><p>&lt;= : Less than or equal to</p></li>
+<li><p><span class="math notranslate nohighlight">\(&gt;=\)</span> : Greater than or equal to</p></li>
+<li><p>/= : Not equal to</p></li>
+</ul>
+<p>When we want to combine multiple conditions, we can use <span class="math notranslate nohighlight">\(\verb|.AND.|\)</span> and <span class="math notranslate nohighlight">\(\verb|.OR.|\)</span>.</p>
+<p>You can add a user snippets for <span class="math notranslate nohighlight">\(\verb|if statement|\)</span>. Now you just type <span class="math notranslate nohighlight">\(\verb|if|\)</span> and Visual Studio Code automatically provides you with a block of code for <span class="math notranslate nohighlight">\(\verb|if statement|\)</span>.</p>
+</section>
+<section id="loop">
+<h2><span class="section-number">1.3. </span>Loop<a class="headerlink" href="#loop" title="Permalink to this heading">#</a></h2>
+<p>We calculate the sum of integer from <span class="math notranslate nohighlight">\(1\)</span> to <span class="math notranslate nohighlight">\(10\)</span>, using <span class="math notranslate nohighlight">\(\verb|do loop|\)</span>.</p>
+<ul class="simple">
+<li><p>Define the two variables: <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(sum\)</span></p></li>
+<li><p>Set the initial value of <span class="math notranslate nohighlight">\(sum\)</span> at <span class="math notranslate nohighlight">\(0\)</span></p></li>
+<li><p>Use the \verb|do loop|</p>
+<ul>
+<li><p>Inside the loop, update the value of sum and increment <span class="math notranslate nohighlight">\(i\)</span> by <span class="math notranslate nohighlight">\(1\)</span></p></li>
+</ul>
+</li>
+<li><p>Print the result to terminal</p></li>
+</ul>
+<p>You can add a user snippets for <span class="math notranslate nohighlight">\(\verb|do loop|\)</span>. Now you just type <span class="math notranslate nohighlight">\(\verb|do loop|\)</span> and Visual Studio Code automatically provides you with a block of code for <span class="math notranslate nohighlight">\(\verb|do loop|\)</span>.</p>
+</section>
+<section id="function-subroutine">
+<h2><span class="section-number">1.4. </span>Function/Subroutine<a class="headerlink" href="#function-subroutine" title="Permalink to this heading">#</a></h2>
+<p><span class="math notranslate nohighlight">\(\verb|Function|\)</span> is used for breaking large codes down into procedures that can be re-used. We calculate saturated DO concentrations with the following empirical equation from 5 to 30 <span class="math notranslate nohighlight">\(^\circ C\)</span> (by 5<span class="math notranslate nohighlight">\(^\circ C\)</span>):
+<span class="math notranslate nohighlight">\(
+ C_{DO} = 14.652 - 0.41022\times T + 0.007991\times T^2 - 0.000077774\times T^3
+\)</span></p>
+<p>Here are the tasks we want to accomplish for this example:</p>
+<ul class="simple">
+<li><p>Write the function named <span class="math notranslate nohighlight">\(\verb|calculate_DO|\)</span></p></li>
+<li><p>Print results to a <span class="math notranslate nohighlight">\(\verb|csv|\)</span> file with the formatting of <span class="math notranslate nohighlight">\(\verb|F6.1|\)</span></p></li>
+</ul>
+<p>We provide a function below a keyword, <span class="math notranslate nohighlight">\(\verb|contains|\)</span>. <span class="math notranslate nohighlight">\(\verb|calculate_DO|\)</span> is a name of the function and <span class="math notranslate nohighlight">\(\verb|DO_conc|\)</span> is a returned value. <span class="math notranslate nohighlight">\(\verb|temperature|\)</span> is an input for this function and we need to add <span class="math notranslate nohighlight">\(\verb|intent(in)|\)</span>. In the main code, we use <span class="math notranslate nohighlight">\(\verb|do loop|\)</span>, where increment is 5 as indicated in the problem statement. Unless increment is 1, we need to explicitly state the number for increment. One more thing important to be mentioned here is that we need to convert the index, <span class="math notranslate nohighlight">\(\verb|i|\)</span> defined as integer to a real number, because the <span class="math notranslate nohighlight">\(\verb|calculate_DO|\)</span> funciton accepts a real number.</p>
+<div class="highlight-Fortran notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="n">real64</span><span class="p">)</span><span class="w"> </span><span class="n">DO_conc</span><span class="p">,</span><span class="w"> </span><span class="n">temperature</span><span class="w"> </span>
+<span class="w"> </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">i</span>
+<span class="w"> </span>
+<span class="w"> </span><span class="k">open</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="k">file</span><span class="o">=</span><span class="s1">&#39;saturated_DO.csv&#39;</span><span class="p">)</span>
+
+<span class="w"> </span><span class="k">do </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span>
+<span class="w">  </span><span class="n">temperature</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="w">  </span><span class="n">DO_conc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">calculate_DO</span><span class="p">(</span><span class="n">temperature</span><span class="p">)</span>
+<span class="w">  </span><span class="k">write</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;(I6, &#39;</span><span class="p">,</span><span class="s1">&#39;, F6.1)&#39;</span><span class="p">)</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">DO_conc</span>
+<span class="w"> </span><span class="k">end do</span>
+
+<span class="k"> contains</span>
+<span class="k"> function </span><span class="n">calculate_DO</span><span class="w"> </span><span class="p">(</span><span class="n">temperature</span><span class="p">)</span><span class="w"> </span><span class="k">result</span><span class="p">(</span><span class="n">DO_conc</span><span class="p">)</span>
+<span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="n">real64</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="w"> </span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">temperature</span>
+<span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="n">real64</span><span class="p">)</span><span class="w"> </span><span class="n">DO_conc</span>
+<span class="w"> </span>
+<span class="w">  </span><span class="n">DO_conc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="mf">4.652</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">0.41022</span><span class="o">*</span><span class="n">temperature</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">0.007991</span><span class="o">*</span><span class="n">temperature</span><span class="o">**</span><span class="mi">2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">0.000077774</span><span class="o">*</span><span class="n">temperature</span><span class="o">**</span><span class="mi">3</span>
+<span class="w"> </span>
+<span class="w"> </span><span class="k">end function </span><span class="n">calculate_DO</span>
+</pre></div>
+</div>
+<p>Subroutine is very similar to function, but there are differences between them and here are the characteristics of subroutine:</p>
+<ul class="simple">
+<li><p>More than 1 value can be returned through arguments.</p></li>
+<li><p>Subroutine is referenced through a <span class="math notranslate nohighlight">\(\verb|CALL|\)</span> statement.</p></li>
+</ul>
+</section>
+<section id="array">
+<h2><span class="section-number">1.5. </span>Array<a class="headerlink" href="#array" title="Permalink to this heading">#</a></h2>
+<p>We consider a case in which temperature distribution in a plate is calculated. The temperature at the position of <span class="math notranslate nohighlight">\((i,j)\)</span> at the time, <span class="math notranslate nohighlight">\(k+1\)</span>, is calculated by averaging those of the surrounding four points at the time, <span class="math notranslate nohighlight">\(k\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\phi^{k+1}_{i,j} = \frac{1}{4}(\phi^{k}_{i+1,j} + \phi^{k}_{i-1,j} + \phi^{k}_{i,j-1} + \phi^{k}_{i,j-1})
+\]</div>
+<p>The above equation is derived from the discritized form of a Laplace equation: <span class="math notranslate nohighlight">\(\frac{\partial^2 \phi}{\partial x^2} + \frac{\partial^2 \phi}{\partial y^2} = 0\)</span>. The second-order derivative can be described as follows:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial^2 \phi}{\partial x^2} = \frac{\phi_{i+1,j}-2\phi_{i,j}+\phi_{i-1,j}}{\Delta x^2} + O(\Delta x^2)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial^2 \phi}{\partial y^2} = \frac{\phi_{i,j+1}-2\phi_{i,j}+\phi_{i,j-1}}{\Delta y^2} + O(\Delta y^2)
+\]</div>
+<p>We plug the first terms of the right-hand side to the Laplace equation.</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\phi_{i+1,j}-2\phi_{i,j}+\phi_{i-1,j}}{\Delta x^2} + \frac{\phi_{i,j+1}-2\phi_{i,j}+\phi_{i,j-1}}{\Delta y^2} = 0 
+\]</div>
+<p>With an assumption of a uniform grid spacing in the <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> directions, we get the equation that appears in the top. We create an array for storing temperature data. Since we consider a two-dimensional array, we need to set the size of both <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> axes: <span class="math notranslate nohighlight">\(\verb|t(0:NX+1, 0:NY+1)|\)</span></p>
+<p>We then need to set initial and boundary conditions. In all positions except for boundaries, temperatures are  initially set at <span class="math notranslate nohighlight">\(0\)</span>, while those on boundaries (i.e., <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> axes) are fixed at <span class="math notranslate nohighlight">\(100\)</span> during the simulation.</p>
+<div class="highlight-Fortran notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">NX</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">NY</span><span class="o">=</span><span class="mi">3</span>
+<span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="n">real64</span><span class="p">)</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">:</span><span class="n">NX</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">:</span><span class="n">NY</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0d0</span>
+<span class="w"> </span><span class="n">t</span><span class="p">(:,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="n">d0</span><span class="p">;</span><span class="w"> </span><span class="n">t</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="p">:)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="n">d0</span>
+</pre></div>
+</div>
+<p>In this case, we create a subroutine in which calculations of temperature are conducted. There are four arguments consisting of three inputs (i.e., <span class="math notranslate nohighlight">\(\verb|n1|\)</span>, <span class="math notranslate nohighlight">\(\verb|n2|\)</span>, <span class="math notranslate nohighlight">\(\verb|max_iter|\)</span>) and one input-output (i.e., <span class="math notranslate nohighlight">\(\verb|t|\)</span>)</p>
+<div class="highlight-Fortran notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="k">contains</span>
+<span class="k"> subroutine </span><span class="n">tempcal</span><span class="p">(</span><span class="n">n1</span><span class="p">,</span><span class="w"> </span><span class="n">n2</span><span class="p">,</span><span class="w"> </span><span class="n">max_iter</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="p">)</span>
+
+<span class="w"> </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">n1</span><span class="p">,</span><span class="w"> </span><span class="n">n2</span><span class="p">,</span><span class="w"> </span><span class="n">max_iter</span>
+<span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="n">real64</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">t</span><span class="p">(</span><span class="mi">0</span><span class="p">:</span><span class="n">n1</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">:</span><span class="n">n2</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="w">   </span><span class="k">do </span><span class="n">iter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">max_iter</span>
+<span class="w">    </span><span class="k">do </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">n1</span>
+<span class="w">     </span><span class="k">do </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">n2</span>
+<span class="w">      </span><span class="n">t</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.25</span><span class="o">*</span><span class="p">(</span><span class="n">t</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">t</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">t</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">t</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+<span class="w">     </span><span class="k">end do</span>
+<span class="k">    end do</span>
+<span class="k">  end do</span>
+
+<span class="k"> end subroutine </span><span class="n">tempcal</span>
+</pre></div>
+</div>
+<p>Now. let’s return to the main program. We use <span class="math notranslate nohighlight">\(\verb|call|\)</span> to reference the subroutine defined above. We need to give four arguments (i.e., <span class="math notranslate nohighlight">\(\verb|NX|\)</span>, <span class="math notranslate nohighlight">\(\verb|NY|\)</span>, <span class="math notranslate nohighlight">\(\verb|max_iter|\)</span>, <span class="math notranslate nohighlight">\(\verb|t|\)</span>) to this subroutine</p>
+<div class="highlight-Fortran notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">NX</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">NY</span><span class="o">=</span><span class="mi">3</span>
+<span class="w"> </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span>
+<span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="n">real64</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">:</span><span class="n">NX</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">:</span><span class="n">NY</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span>
+
+<span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0d0</span>
+<span class="w"> </span><span class="n">t</span><span class="p">(:,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="n">d0</span><span class="p">;</span><span class="w"> </span><span class="n">t</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="p">:)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="n">d0</span>
+
+<span class="w"> </span><span class="k">call </span><span class="n">tempcal</span><span class="p">(</span><span class="n">NX</span><span class="p">,</span><span class="w"> </span><span class="n">NY</span><span class="p">,</span><span class="w"> </span><span class="n">max_iter</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Finally, we write results into a csv file. Just for the data appearance consistent with a <span class="math notranslate nohighlight">\(x\)</span>-<span class="math notranslate nohighlight">\(y\)</span> coordinate graph, the index, <span class="math notranslate nohighlight">\(j\)</span> starts from <span class="math notranslate nohighlight">\(\verb|NY+1|\)</span> down to <span class="math notranslate nohighlight">\(\verb|0|\)</span>. In each <span class="math notranslate nohighlight">\(y\)</span> axes, we want to display five data: <span class="math notranslate nohighlight">\(\verb|(t(i, j), i=0, NX+1)|\)</span>.</p>
+<div class="highlight-Fortran notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="k">open</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="k">file</span><span class="o">=</span><span class="s1">&#39;result.csv&#39;</span><span class="p">)</span>
+
+<span class="w"> </span><span class="k">do </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NY</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span>
+<span class="w">  </span><span class="k">write</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;(*(g0:,&quot;,&quot;))&#39;</span><span class="p">)(</span><span class="n">t</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">),</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">NX</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="w"> </span><span class="k">end do</span>
+</pre></div>
+</div>
+<p>We further modify the code to get a series of data capturing temperature distribution in every iteration cycle. Since we want to produce a separate csv file, we add an iteration cycle after the extension <span class="math notranslate nohighlight">\(\verb|csv|\)</span>. A symbol, <span class="math notranslate nohighlight">\(\verb|//|\)</span>, represents concatenation of <span class="math notranslate nohighlight">\(\verb|results.csv.|\)</span> and <span class="math notranslate nohighlight">\(\verb|iter|\)</span>. Here, we need to somehow convert an index used in <span class="math notranslate nohighlight">\(\verb|do loop|\)</span> (which is defined as integer) to a character. Fortran does not have a straightforward way for this conversion: we use a kind of trick, using a <span class="math notranslate nohighlight">\(\verb|write|\)</span> function. In the line of code, <span class="math notranslate nohighlight">\(\verb|write(iter, '(I4)') i_iter|\)</span>, we inject a value of <span class="math notranslate nohighlight">\(\verb|i_iter|\)</span> to <span class="math notranslate nohighlight">\(\verb|iter|\)</span>, of which type is <strong>character</strong>. A built-in function, <span class="math notranslate nohighlight">\(\verb|adjustl|\)</span>, “will left adjust a string by removing leading spaces. Spaces are inserted at the end of the string as needed” according to the GNU compiler official documentation (GNU is an operating system advocating for free and open software. GNU is also referred to as a collection of programs including the Fortran compiler). You can find information on which built-in functions are available as well as how those functions can be used at: <a class="reference external" href="https://gcc.gnu.org/onlinedocs/gfortran/Keyword-Index.html#Keyword-Index">https://gcc.gnu.org/onlinedocs/gfortran/Keyword-Index.html#Keyword-Index</a></p>
+<div class="highlight-Fortran notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="k">do </span><span class="n">i_iter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span>
+<span class="w">   </span><span class="k">write</span><span class="p">(</span><span class="n">iter</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;(I4)&#39;</span><span class="p">)</span><span class="w"> </span><span class="n">i_iter</span>
+<span class="w">   </span><span class="n">iter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">adjustl</span><span class="p">(</span><span class="n">iter</span><span class="p">)</span>
+<span class="w">   </span><span class="k">open</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="k">file</span><span class="o">=</span><span class="s1">&#39;result.csv.&#39;</span><span class="w"> </span><span class="o">//</span><span class="n">iter</span><span class="p">)</span>
+<span class="w">   </span><span class="k">call </span><span class="n">tempcal</span><span class="p">(</span><span class="n">NX</span><span class="p">,</span><span class="w"> </span><span class="n">NY</span><span class="p">,</span><span class="w"> </span><span class="n">i_iter</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="p">)</span>
+<span class="w">  </span>
+<span class="w">   </span><span class="k">write</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="s1">&#39;x, y, z, t&#39;</span>
+<span class="w">  </span>
+<span class="w">   </span><span class="k">do </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">NX</span><span class="o">+</span><span class="mi">1</span>
+<span class="w">   </span><span class="n">xx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">dble</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="w">   </span><span class="k">do </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">NY</span><span class="o">+</span><span class="mi">1</span>
+<span class="w">   </span><span class="n">yy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">dble</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+<span class="w">   </span><span class="k">write</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;(*(g0:,&quot;,&quot;))&#39;</span><span class="p">)</span><span class="w"> </span><span class="n">xx</span><span class="p">,</span><span class="w"> </span><span class="n">yy</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">)</span>
+<span class="w">   </span><span class="k">end do</span><span class="p">;</span><span class="w"> </span><span class="k">end do</span>
+<span class="k"> end do</span>
+</pre></div>
+</div>
+<p>As we completed implementation of the basic functionality, we introduce a new feature of timing the code below. This feature is used to analyze a part which is time-consuming for further improvement of code. We use a <span class="math notranslate nohighlight">\(\verb|system_clock|\)</span> module twice, sandwiching the subroutine, which is a part of interest in this case. For the first call, two arguments (i.e., <span class="math notranslate nohighlight">\(\verb|count_start|\)</span> and <span class="math notranslate nohighlight">\(\verb|count_rate|\)</span>) are given, while one argument (i.e., <span class="math notranslate nohighlight">\(\verb|count_end|\)</span>) is given for the second call. All of three arguments are integer and are used for calculation of <span class="math notranslate nohighlight">\(\verb|calc_time|\)</span>, which are displayed in the terminal eventually.</p>
+<div class="highlight-Fortran notranslate"><div class="highlight"><pre><span></span><span class="kt">Integer</span><span class="p">(</span><span class="n">int32</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">count_start</span><span class="p">,</span><span class="w"> </span><span class="n">count_end</span><span class="p">,</span><span class="w"> </span><span class="n">count_rate</span>
+<span class="w"> </span><span class="kt">real</span><span class="w"> </span><span class="p">(</span><span class="n">real64</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">calc_time</span>
+
+<span class="w"> </span><span class="k">call </span><span class="nb">system_clock</span><span class="p">(</span><span class="n">count_start</span><span class="p">,</span><span class="w"> </span><span class="n">count_rate</span><span class="p">)</span>
+
+<span class="w"> </span><span class="k">call </span><span class="n">tempcal</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span><span class="w"> </span><span class="n">ny</span><span class="p">,</span><span class="w"> </span><span class="n">max_iter</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="p">)</span>
+
+<span class="w"> </span><span class="k">call </span><span class="nb">system_clock</span><span class="p">(</span><span class="n">count_end</span><span class="p">)</span>
+<span class="w"> </span><span class="n">calc_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="n">count_end</span><span class="o">-</span><span class="n">count_start</span><span class="p">)</span><span class="o">/</span><span class="kt">real</span><span class="p">(</span><span class="n">count_rate</span><span class="p">)</span>
+<span class="w"> </span><span class="k">print</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Run time = &#39;</span><span class="p">,</span><span class="w"> </span><span class="n">calc_time</span>
+</pre></div>
+</div>
+<p>One more revise. The array size can be flexible with addition of a keyword <span class="math notranslate nohighlight">\(\verb|allocatable|\)</span> in the declaration. Then, we do not provide specific numbers; instead, <span class="math notranslate nohighlight">\(\verb|:|\)</span> is used. Once the size of the array is fixed, we can use <span class="math notranslate nohighlight">\(\verb|allocate()|\)</span>. Inside the parentheses, we provide <span class="math notranslate nohighlight">\(\verb|t(0:nx+1, 0:ny+1)|\)</span>.</p>
+<div class="highlight-Fortran notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">nx</span><span class="p">,</span><span class="w"> </span><span class="n">ny</span>
+<span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="n">real64</span><span class="p">),</span><span class="w"> </span><span class="k">allocatable</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="p">(:,:)</span>
+
+<span class="w"> </span><span class="n">nx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"> </span><span class="n">ny</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span>
+<span class="w"> </span><span class="k">allocate</span><span class="p">(</span><span class="n">t</span><span class="p">(</span><span class="mi">0</span><span class="p">:</span><span class="n">nx</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">:</span><span class="n">ny</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="w"> </span><span class="n">t</span><span class="o">=</span><span class="mi">0</span><span class="n">d0</span><span class="p">;</span><span class="w"> </span><span class="n">t</span><span class="p">(:,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="n">d0</span><span class="p">;</span><span class="w"> </span><span class="n">t</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="p">:)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="n">d0</span>
+
+<span class="w"> </span><span class="k">deallocate</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./water-quality-modeling"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Welcome to Fortran programming</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="differentialEquation.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">2. </span>Differential Equation</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#input-and-output">1.1. Input and output</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#if-statement">1.2. If statement</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loop">1.3. Loop</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-subroutine">1.4. Function/Subroutine</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#array">1.5. Array</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Yoshihiko Inagaki
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
