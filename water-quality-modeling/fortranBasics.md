@@ -14,7 +14,7 @@ kernelspec:
 # Fortran basics
 
 
-In Fortran, you need to declare a type of variable. The types for number typically used are real (a number with a decimal point) and integer (a number without a decimal point). We want to set double precision for real to conduct more accurate calculations. We can use a module, iso_fortran_env and add (real64) to real as shown below.
+In Fortran, you need to first declare a type of variable. The types for number typically used are real (a number with a decimal point) and integer (a number without a decimal point). We want to set double precision for real to conduct more accurate calculations. We can use a module, iso_fortran_env and add (real64) to real as shown below.
 
 ```Fortran
 use,intrinsic :: iso fortran env
