@@ -1,0 +1,50 @@
+{
+	"Using iso_fortran_env module": {
+		"prefix": "usf",
+		"body": [
+			"use,intrinsic :: iso_fortran_env"
+		],
+		"description": "Using iso_fortran_env module"
+	},
+	"Declaration of binary64": {
+		"prefix": "real",
+		"body": [
+			"real(real64)"
+		],
+		"description": "Declaration of binary64"
+	},
+	"Declaration of binary64 allocatable": {
+		"prefix": "reala",
+		"body": [
+			"real(real64), allocatable :: "
+		],
+		"description": "Declaration of binary64"
+	},
+	"Declaration of 4-bytes-integer": {
+		"prefix": "int",
+		"body": [
+			"integer(int32)"
+		],
+		"description": "Declaration of 4-bytes-integer"
+	},
+	"do constructor": {
+		"prefix": "do",
+		"body": [
+			"do $2 = $3, $4",
+			"    $0",
+			"end do"
+		],
+		"description": "named do constructor"
+	},
+	"if constructor": {
+		"prefix": "if",
+		"body": [
+			"if ($2) then",
+			"    $0",
+			"else if ($3) then",
+			"else",
+			"end if"
+		],
+		"description": "named do constructor"
+	}
+}

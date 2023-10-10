@@ -1,0 +1,26 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: index
+# chapters:
+#   - file: water-quality-modeling/markdown
+#   - file: water-quality-modeling/notebooks
+  # - file: water-quality-modeling/bibliography
+
+# Or you organize the TOC by parts
+
+parts:
+  - caption: Chapters
+    numbered: true
+    maxdepth: 2
+    chapters:
+      - file: water-quality-modeling/fortranBasics
+      - file: water-quality-modeling/differentialEquation
+      - file: water-quality-modeling/streeterPhelps
+      - file: water-quality-modeling/IWA
+      - file: water-quality-modeling/lakeModel
+  - caption: Appendices
+    chapters:
+      - file: water-quality-modeling/installation
+      - file: water-quality-modeling/bibliography
